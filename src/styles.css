@@ -174,7 +174,7 @@ section {
 .nav {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   backdrop-filter: blur(6px);
   background: rgba(254, 242, 242, 0.85);
   border-bottom: var(--border-thick);
@@ -880,7 +880,82 @@ section {
   color: #aaa;
 }
 
+/* MOBILE NAV -------------------------------------------------------------- */
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 150;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .mobile-nav__inner {
+    background: var(--paper);
+    border-bottom: var(--border-thick);
+    border-left: var(--border-thick);
+    border-right: var(--border-thick);
+    padding: 20px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    margin-top: 72px;
+  }
+
+  .mobile-nav__close {
+    position: absolute;
+    top: -60px;
+    right: 4px;
+    width: 48px;
+    height: 48px;
+    border: var(--border-thick);
+    border-radius: 8px;
+    background: var(--paper);
+    box-shadow: 3px 3px 0 0 var(--ink);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    z-index: 200;
+  }
+
+  .mobile-nav__links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .mobile-nav__links li {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .mobile-nav__links a {
+    display: block;
+    padding: 18px 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
 /* RESPONSIVE --------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .hero__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 3vw, 48px);
+  }
+}
+
 @media (max-width: 900px) {
   .hero__grid,
   .reserve__grid {
@@ -888,7 +963,7 @@ section {
   }
 
   .stack {
-    max-width: 420px;
+    max-width: 380px;
     margin: 0 auto;
   }
 
@@ -901,10 +976,155 @@ section {
     height: 24px;
   }
   .foot__grid { grid-template-columns: 1fr 1fr; }
+  .sec-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  .card__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .card__media-emoji {
+    font-size: 4rem;
+  }
+
+  .reviews {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .hero__meta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .hero__meta-divider {
+    display: none;
+  }
+
+  .hero__title {
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+  }
+
+  .hero__sub {
+    font-size: 1rem;
+  }
+
+  .stat {
+    padding: 20px 16px;
+  }
+
+  .stats__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat:nth-child(2) {
+    border-right: 2px solid var(--paper);
+  }
+
+  .stat:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .reserve__form {
+    padding: 20px;
+  }
+
+  .btn {
+    padding: 14px 22px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 540px) {
   .foot__grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }
-  section { padding: 72px 0; }
+  section { padding: 56px 0; }
+
+  .nav__inner {
+    padding: 10px 0;
+  }
+
+  .stack {
+    max-width: 300px;
+  }
+
+  .hero {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__eyebrow {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+
+  .marquee__track {
+    font-size: 1rem;
+    gap: 32px;
+  }
+
+  .marquee__track span {
+    gap: 32px;
+  }
+
+  .sec-head {
+    margin-bottom: 36px;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
+
+  .sec-head p {
+    font-size: 0.92rem;
+  }
+
+  .review {
+    padding: 20px;
+  }
+
+  .reserve h2 {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+  }
+
+  .reserve p {
+    font-size: 1rem;
+  }
+
+  .foot {
+    padding: 40px 0 24px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .logo__mark {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
 }

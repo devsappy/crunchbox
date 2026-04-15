@@ -26,54 +26,102 @@ export default function App() {
 /* === NAV =============================================================== */
 function Nav() {
   const links = ['Menu', 'Story', 'Reviews', 'Hours']
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <motion.header
-      className="nav"
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="container nav__inner">
-        <a href="#top" className="logo" aria-label="Crunch Box — home">
-          <motion.span
-            className="logo__mark"
-            whileHover={{ rotate: -8, scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-          >
-            CB
-          </motion.span>
-          <span>Crunch&nbsp;Box</span>
-        </a>
+    <>
+      <motion.header
+        className="nav"
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="container nav__inner">
+          <a href="#top" className="logo" aria-label="Crunch Box — home">
+            <motion.span
+              className="logo__mark"
+              whileHover={{ rotate: -8, scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+            >
+              CB
+            </motion.span>
+            <span>Crunch&nbsp;Box</span>
+          </a>
 
-        <nav aria-label="Primary">
-          <ul className="nav__links">
+          <nav aria-label="Primary">
+            <ul className="nav__links">
+              {links.map((l) => (
+                <li key={l}>
+                  <a href={`#${l.toLowerCase()}`}>{l}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <motion.a
+            href="#reserve"
+            className="btn btn--primary nav__cta"
+            whileHover={{ x: -2, y: -2 }}
+            whileTap={{ x: 4, y: 4, boxShadow: '0 0 0 0 #0a0a0a' }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          >
+            Book a Table
+          </motion.a>
+
+          <button
+            className="hamburger"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <line x1="2" y1="2" x2="16" y2="16" stroke="#0a0a0a" strokeWidth="3" strokeLinecap="square" />
+                <line x1="16" y1="2" x2="2" y2="16" stroke="#0a0a0a" strokeWidth="3" strokeLinecap="square" />
+              </svg>
+            ) : (
+              <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
+                <rect y="0" width="20" height="3" fill="#0a0a0a" />
+                <rect y="6" width="20" height="3" fill="#0a0a0a" />
+                <rect y="12" width="20" height="2" fill="#0a0a0a" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </motion.header>
+
+      <motion.div
+        className={`mobile-nav ${menuOpen ? 'mobile-nav--open' : ''}`}
+        initial={false}
+        animate={menuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        style={{ pointerEvents: menuOpen ? 'auto' : 'none' }}
+      >
+        <div className="mobile-nav__inner">
+          <button className="mobile-nav__close" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <line x1="4" y1="4" x2="20" y2="20" stroke="#0a0a0a" strokeWidth="3" strokeLinecap="square" />
+              <line x1="20" y1="4" x2="4" y2="20" stroke="#0a0a0a" strokeWidth="3" strokeLinecap="square" />
+            </svg>
+          </button>
+          <ul className="mobile-nav__links">
             {links.map((l) => (
               <li key={l}>
-                <a href={`#${l.toLowerCase()}`}>{l}</a>
+                <a href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}>
+                  {l}
+                </a>
               </li>
             ))}
           </ul>
-        </nav>
-
-        <motion.a
-          href="#reserve"
-          className="btn btn--primary nav__cta"
-          whileHover={{ x: -2, y: -2 }}
-          whileTap={{ x: 4, y: 4, boxShadow: '0 0 0 0 #0a0a0a' }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-        >
-          Book a Table
-        </motion.a>
-
-        <button className="hamburger" aria-label="Open menu">
-          <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
-            <rect y="0" width="20" height="3" fill="#0a0a0a" />
-            <rect y="6" width="20" height="3" fill="#0a0a0a" />
-            <rect y="12" width="20" height="2" fill="#0a0a0a" />
-          </svg>
-        </button>
-      </div>
-    </motion.header>
+          <a
+            href="#reserve"
+            className="btn btn--primary"
+            onClick={() => setMenuOpen(false)}
+          >
+            Book a Table
+          </a>
+        </div>
+      </motion.div>
+    </>
   )
 }
 
